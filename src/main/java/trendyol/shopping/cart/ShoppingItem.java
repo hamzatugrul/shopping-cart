@@ -19,6 +19,10 @@ public class ShoppingItem implements Comparable<ShoppingItem> {
         this.applicableCampaigns = Collections.EMPTY_LIST;
     }
 
+    protected List<ICampaign> getApplicableCampaigns() {
+        return applicableCampaigns;
+    }
+
     public Product getProduct() {
         return this.product;
     }
@@ -33,7 +37,7 @@ public class ShoppingItem implements Comparable<ShoppingItem> {
         }
     }
 
-    private void addCampaign(ICampaign campaign) {
+    void addCampaign(ICampaign campaign) {
         if (this.applicableCampaigns == Collections.EMPTY_LIST) {
             this.applicableCampaigns = new ArrayList<>();
             this.applicableCampaigns.add(campaign);
@@ -47,12 +51,12 @@ public class ShoppingItem implements Comparable<ShoppingItem> {
     }
 
     /**
-     * Choose best campaign if more campaign tries to apply on one product
-     * and return best applied campaign
+     * Choose best campaign if product is in campaign applied category and if more campaign tries to apply on one product
+     * Then, return best applied campaign
      *
      * @return Calculated best campaign discount
      */
-    public double getCampaignDiscountForProduct() {
+    public double getBestCampaignDiscountForProduct() {
         double bestDiscount = 0;
 
         for (ICampaign campaign : applicableCampaigns) {
@@ -66,7 +70,7 @@ public class ShoppingItem implements Comparable<ShoppingItem> {
 
     private String getAppliedCampaignText() {
         // This method was just added for giving an example while presentation
-        StringBuilder text = new StringBuilder("==> Applied Campaigns: " + applicableCampaigns.size() + "\n");
+        StringBuilder text = new StringBuilder("==> Applicable Campaigns: " + applicableCampaigns.size() + "\n");
         for (ICampaign campaign : applicableCampaigns) {
             text.append("=====> ").append(campaign.toString()).append("\n");
         }
@@ -82,7 +86,7 @@ public class ShoppingItem implements Comparable<ShoppingItem> {
 
     @Override
     public int compareTo(ShoppingItem shoppingItem) {
-        int result = this.product.getCategory().toString().compareTo(shoppingItem.getProduct().getCategory().toString());
+        int result = this.product.getCategory().compareTo(shoppingItem.getProduct().getCategory());
 
         return result == 0 ?
                this.product.getTitle().compareTo(shoppingItem.getProduct().getTitle()) :

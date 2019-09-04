@@ -2,7 +2,7 @@ package trendyol.shopping;
 
 public class Category implements Comparable<Category> {
 
-    protected final static String SUBCATEGORY_ARROW = ">>";
+    protected final static String SUBCATEGORY_ARROW = " >> ";
 
     private String title;
     private Category parentCategory;
@@ -30,7 +30,7 @@ public class Category implements Comparable<Category> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         if (this.parentCategory != null) {
-            sb.append(this.parentCategory.toString()).append(SUBCATEGORY_ARROW);
+            sb.append(this.parentCategory.toString()).append(" >> ");
         }
         return sb.append(this.title).toString();
     }

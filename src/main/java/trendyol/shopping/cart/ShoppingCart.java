@@ -25,6 +25,16 @@ public class ShoppingCart implements ICart {
         this.deliveryCostCalculator = deliveryCostCalculator;
     }
 
+    List<ShoppingItem> getShoppingItems() {
+        return shoppingItems;
+    }
+
+    /**
+     * Products can be added to a shopping cart with quantity
+     *
+     * @param product  product which will be added in cart
+     * @param quantity quantity of products which will be added in cart
+     */
     public void addItem(Product product, int quantity) {
         if (product == null) {
             throw new IllegalArgumentException("Product is null!");
@@ -68,7 +78,7 @@ public class ShoppingCart implements ICart {
         return getTotalPriceOfAllProducts() - getCampaignDiscount();
     }
 
-    private double getTotalPriceOfAllProducts() {
+    protected double getTotalPriceOfAllProducts() {
         return shoppingItems.stream()
                 .mapToDouble(ShoppingItem::getTotalPrice)
                 .sum();
@@ -76,7 +86,7 @@ public class ShoppingCart implements ICart {
 
     public double getCampaignDiscount() {
         return shoppingItems.stream()
-                .mapToDouble(ShoppingItem::getCampaignDiscountForProduct)
+                .mapToDouble(ShoppingItem::getBestCampaignDiscountForProduct)
                 .sum();
     }
 
@@ -120,6 +130,12 @@ public class ShoppingCart implements ICart {
         return shoppingItems.size();
     }
 
+    /**
+     * Calculates delivery cost<br>
+     * It applies dynamic cargo pricing rules based on given the number of deliveries and number of products.
+     *
+     * @return double - Return Delivery Cost
+     **/
     public double getDeliveryCost() {
         return deliveryCostCalculator.calculateFor(getNumberOfDeliveries(), getNumberOfProducts());
     }
