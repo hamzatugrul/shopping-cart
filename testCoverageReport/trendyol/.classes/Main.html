@@ -1,0 +1,133 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Main</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">trendyol</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Main (trendyol)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Main</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    95.8%
+  </span>
+  <span class="absValue">
+    (23/ 24)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package trendyol;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import trendyol.shopping.Category;
+<i>4</i>&nbsp;import trendyol.shopping.Product;
+<i>5</i>&nbsp;import trendyol.shopping.cart.ICart;
+<i>6</i>&nbsp;import trendyol.shopping.cart.ShoppingCart;
+<i>7</i>&nbsp;import trendyol.shopping.delivery.DeliveryCostCalculator;
+<i>8</i>&nbsp;import trendyol.shopping.delivery.IDeliveryCostCalculator;
+<i>9</i>&nbsp;import trendyol.shopping.dicounts.DiscountType;
+<i>10</i>&nbsp;import trendyol.shopping.dicounts.campaign.CampaignFactory;
+<i>11</i>&nbsp;import trendyol.shopping.dicounts.campaign.ICampaign;
+<i>12</i>&nbsp;import trendyol.shopping.dicounts.coupon.AmountCoupon;
+<i>13</i>&nbsp;import trendyol.shopping.dicounts.coupon.ICoupon;
+<i>14</i>&nbsp;import trendyol.shopping.dicounts.coupon.RateCoupon;
+<i>15</i>&nbsp;
+<b class="nc"><i>16</i>&nbsp;public class Main {</b>
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    public static void main(String[] args) {
+<b class="fc"><i>19</i>&nbsp;        IDeliveryCostCalculator deliveryCostCalculator = new DeliveryCostCalculator(1, 1);</b>
+<i>20</i>&nbsp;
+<b class="fc"><i>21</i>&nbsp;        Category food = new Category(&quot;Food&quot;);</b>
+<b class="fc"><i>22</i>&nbsp;        Category fruit = new Category(&quot;Fruit&quot;, food);</b>
+<b class="fc"><i>23</i>&nbsp;        Category snack = new Category(&quot;Snack&quot;, food);</b>
+<b class="fc"><i>24</i>&nbsp;        Category freshFruit = new Category(&quot;Fresh Fruit&quot;, fruit);</b>
+<i>25</i>&nbsp;
+<b class="fc"><i>26</i>&nbsp;        Product apple = new Product(&quot;Apple&quot;, 5.0, fruit);</b>
+<b class="fc"><i>27</i>&nbsp;        Product banana = new Product(&quot;Banana&quot;, 3.0, fruit);</b>
+<b class="fc"><i>28</i>&nbsp;        Product cookie = new Product(&quot;Cookie&quot;, 20.0, snack);</b>
+<b class="fc"><i>29</i>&nbsp;        Product watermelon = new Product(&quot;Watermelon&quot;, 10, freshFruit);</b>
+<i>30</i>&nbsp;
+<b class="fc"><i>31</i>&nbsp;        ICart cart = new ShoppingCart(deliveryCostCalculator);</b>
+<b class="fc"><i>32</i>&nbsp;        cart.addItem(banana, 2);</b>
+<b class="fc"><i>33</i>&nbsp;        cart.addItem(apple, 3);</b>
+<b class="fc"><i>34</i>&nbsp;        cart.addItem(cookie, 5);</b>
+<b class="fc"><i>35</i>&nbsp;        cart.addItem(apple, 4);</b>
+<b class="fc"><i>36</i>&nbsp;        cart.addItem(watermelon, 3);</b>
+<i>37</i>&nbsp;
+<b class="fc"><i>38</i>&nbsp;        ICampaign campaignForFood = CampaignFactory.getCampaign(food, 10.0, 2, DiscountType.Rate);</b>
+<b class="fc"><i>39</i>&nbsp;        ICampaign campaignForFruit = CampaignFactory.getCampaign(fruit, 5.0, 2, DiscountType.Amount);</b>
+<i>40</i>&nbsp;
+<b class="fc"><i>41</i>&nbsp;        cart.applyDiscounts(campaignForFood, campaignForFruit);</b>
+<i>42</i>&nbsp;
+<b class="fc"><i>43</i>&nbsp;        ICoupon rateCoupon = new RateCoupon(10, 125);</b>
+<b class="fc"><i>44</i>&nbsp;        ICoupon amountCoupon = new AmountCoupon(20, 100);</b>
+<i>45</i>&nbsp;
+<b class="fc"><i>46</i>&nbsp;        cart.applyCoupons(rateCoupon, amountCoupon);</b>
+<i>47</i>&nbsp;
+<b class="fc"><i>48</i>&nbsp;        cart.print();</b>
+<b class="fc"><i>49</i>&nbsp;    }</b>
+<i>50</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-09-04 08:04</div>
+</div>
+</body>
+</html>

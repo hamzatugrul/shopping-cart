@@ -1,0 +1,77 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ICart</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">trendyol.shopping.cart</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ICart (trendyol.shopping.cart)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">ICart</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package trendyol.shopping.cart;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import trendyol.shopping.Product;
+<i>4</i>&nbsp;import trendyol.shopping.dicounts.campaign.ICampaign;
+<i>5</i>&nbsp;import trendyol.shopping.dicounts.coupon.ICoupon;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;public interface ICart {
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;    /**
+<i>10</i>&nbsp;     * Add products into cart with given number of products
+<i>11</i>&nbsp;     *
+<i>12</i>&nbsp;     * @param product  product which will be added in cart
+<i>13</i>&nbsp;     * @param quantity quantity of products which will be added in cart
+<i>14</i>&nbsp;     */
+<i>15</i>&nbsp;    void addItem(Product product, int quantity);
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    void applyDiscounts(ICampaign... campaigns);
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    void applyCoupons(ICoupon... coupons);
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    double getTotalAmountAfterDiscounts();
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    double getCouponDiscount();
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    double getCampaignDiscount();
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    double getDeliveryCost();
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    void print();
+<i>30</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-09-04 08:04</div>
+</div>
+</body>
+</html>

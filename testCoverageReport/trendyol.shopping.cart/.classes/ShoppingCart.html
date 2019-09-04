@@ -1,0 +1,242 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ShoppingCart</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">trendyol.shopping.cart</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ShoppingCart (trendyol.shopping.cart)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ShoppingCart</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (15/ 15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (61/ 61)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package trendyol.shopping.cart;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import trendyol.shopping.Category;
+<i>4</i>&nbsp;import trendyol.shopping.Product;
+<i>5</i>&nbsp;import trendyol.shopping.delivery.IDeliveryCostCalculator;
+<i>6</i>&nbsp;import trendyol.shopping.dicounts.campaign.ICampaign;
+<i>7</i>&nbsp;import trendyol.shopping.dicounts.coupon.ICoupon;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;import java.util.ArrayList;
+<i>10</i>&nbsp;import java.util.Collections;
+<i>11</i>&nbsp;import java.util.HashSet;
+<i>12</i>&nbsp;import java.util.List;
+<i>13</i>&nbsp;import java.util.Optional;
+<i>14</i>&nbsp;import java.util.Set;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;public class ShoppingCart implements ICart {
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    private List&lt;ShoppingItem&gt; shoppingItems;
+<i>19</i>&nbsp;    private List&lt;ICoupon&gt; couponList;
+<i>20</i>&nbsp;    private IDeliveryCostCalculator deliveryCostCalculator;
+<i>21</i>&nbsp;
+<b class="fc"><i>22</i>&nbsp;    public ShoppingCart(IDeliveryCostCalculator deliveryCostCalculator) {</b>
+<b class="fc"><i>23</i>&nbsp;        this.shoppingItems = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>24</i>&nbsp;        this.couponList = new ArrayList&lt;&gt;();</b>
+<b class="fc"><i>25</i>&nbsp;        this.deliveryCostCalculator = deliveryCostCalculator;</b>
+<b class="fc"><i>26</i>&nbsp;    }</b>
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    List&lt;ShoppingItem&gt; getShoppingItems() {
+<b class="fc"><i>29</i>&nbsp;        return shoppingItems;</b>
+<i>30</i>&nbsp;    }
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    /**
+<i>33</i>&nbsp;     * Products can be added to a shopping cart with quantity
+<i>34</i>&nbsp;     *
+<i>35</i>&nbsp;     * @param product  product which will be added in cart
+<i>36</i>&nbsp;     * @param quantity quantity of products which will be added in cart
+<i>37</i>&nbsp;     */
+<i>38</i>&nbsp;    public void addItem(Product product, int quantity) {
+<b class="fc"><i>39</i>&nbsp;        if (product == null) {</b>
+<b class="fc"><i>40</i>&nbsp;            throw new IllegalArgumentException(&quot;Product is null!&quot;);</b>
+<i>41</i>&nbsp;        }
+<b class="fc"><i>42</i>&nbsp;        if (quantity &lt;= 0) {</b>
+<b class="fc"><i>43</i>&nbsp;            throw new IllegalArgumentException(&quot;Invalid quantity of product :&quot; + quantity);</b>
+<i>44</i>&nbsp;        }
+<i>45</i>&nbsp;
+<b class="fc"><i>46</i>&nbsp;        Optional&lt;ShoppingItem&gt; shoppingItem = shoppingItems.stream()</b>
+<b class="fc"><i>47</i>&nbsp;                .filter(item -&gt; item.getProduct() == product)</b>
+<b class="fc"><i>48</i>&nbsp;                .findFirst();</b>
+<i>49</i>&nbsp;
+<b class="fc"><i>50</i>&nbsp;        if (shoppingItem.isPresent()) {</b>
+<b class="fc"><i>51</i>&nbsp;            shoppingItem.get().addQuantity(quantity);</b>
+<i>52</i>&nbsp;        } else {
+<b class="fc"><i>53</i>&nbsp;            shoppingItems.add(new ShoppingItem(product, quantity));</b>
+<i>54</i>&nbsp;        }
+<b class="fc"><i>55</i>&nbsp;    }</b>
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    public void applyDiscounts(ICampaign... campaigns) {
+<b class="fc"><i>58</i>&nbsp;        for (ICampaign campaign : campaigns) {</b>
+<b class="fc"><i>59</i>&nbsp;            shoppingItems.forEach(shoppingItem -&gt; shoppingItem.addApplicableCampaignForProduct(campaign));</b>
+<i>60</i>&nbsp;        }
+<b class="fc"><i>61</i>&nbsp;    }</b>
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;    public void applyCoupons(ICoupon... coupons) {
+<b class="fc"><i>64</i>&nbsp;        double totalAmount = getTotalAmountAfterCampaignDiscount();</b>
+<b class="fc"><i>65</i>&nbsp;        for (ICoupon coupon : coupons) {</b>
+<b class="fc"><i>66</i>&nbsp;            if (coupon.isApplicable(totalAmount)) {</b>
+<b class="fc"><i>67</i>&nbsp;                couponList.add(coupon);</b>
+<b class="fc"><i>68</i>&nbsp;                totalAmount -= coupon.getDiscount(totalAmount);</b>
+<i>69</i>&nbsp;            }
+<i>70</i>&nbsp;        }
+<b class="fc"><i>71</i>&nbsp;    }</b>
+<i>72</i>&nbsp;
+<i>73</i>&nbsp;    public double getTotalAmountAfterDiscounts() {
+<b class="fc"><i>74</i>&nbsp;        return getTotalAmountAfterCampaignDiscount() - getCouponDiscount();</b>
+<i>75</i>&nbsp;    }
+<i>76</i>&nbsp;
+<i>77</i>&nbsp;    public double getTotalAmountAfterCampaignDiscount() {
+<b class="fc"><i>78</i>&nbsp;        return getTotalPriceOfAllProducts() - getCampaignDiscount();</b>
+<i>79</i>&nbsp;    }
+<i>80</i>&nbsp;
+<i>81</i>&nbsp;    protected double getTotalPriceOfAllProducts() {
+<b class="fc"><i>82</i>&nbsp;        return shoppingItems.stream()</b>
+<b class="fc"><i>83</i>&nbsp;                .mapToDouble(ShoppingItem::getTotalPrice)</b>
+<b class="fc"><i>84</i>&nbsp;                .sum();</b>
+<i>85</i>&nbsp;    }
+<i>86</i>&nbsp;
+<i>87</i>&nbsp;    public double getCampaignDiscount() {
+<b class="fc"><i>88</i>&nbsp;        return shoppingItems.stream()</b>
+<b class="fc"><i>89</i>&nbsp;                .mapToDouble(ShoppingItem::getBestCampaignDiscountForProduct)</b>
+<b class="fc"><i>90</i>&nbsp;                .sum();</b>
+<i>91</i>&nbsp;    }
+<i>92</i>&nbsp;
+<i>93</i>&nbsp;    public double getCouponDiscount() {
+<b class="fc"><i>94</i>&nbsp;        double totalAmount = getTotalAmountAfterCampaignDiscount();</b>
+<b class="fc"><i>95</i>&nbsp;        double totalCouponDiscount = 0;</b>
+<i>96</i>&nbsp;
+<b class="fc"><i>97</i>&nbsp;        for (ICoupon coupon : couponList) {</b>
+<b class="fc"><i>98</i>&nbsp;            double discount = coupon.getDiscount(totalAmount);</b>
+<b class="fc"><i>99</i>&nbsp;            totalCouponDiscount += discount;</b>
+<b class="fc"><i>100</i>&nbsp;            totalAmount -= discount;</b>
+<b class="fc"><i>101</i>&nbsp;        }</b>
+<i>102</i>&nbsp;
+<b class="fc"><i>103</i>&nbsp;        return totalCouponDiscount;</b>
+<i>104</i>&nbsp;    }
+<i>105</i>&nbsp;
+<i>106</i>&nbsp;    private Set&lt;Category&gt; getDistinctCategories() {
+<b class="fc"><i>107</i>&nbsp;        Set&lt;Category&gt; categories = new HashSet&lt;&gt;();</b>
+<b class="fc"><i>108</i>&nbsp;        for (ShoppingItem shoppingItem : shoppingItems) {</b>
+<b class="fc"><i>109</i>&nbsp;            categories.add(shoppingItem.getProduct().getCategory());</b>
+<b class="fc"><i>110</i>&nbsp;        }</b>
+<b class="fc"><i>111</i>&nbsp;        return categories;</b>
+<i>112</i>&nbsp;    }
+<i>113</i>&nbsp;
+<i>114</i>&nbsp;    /**
+<i>115</i>&nbsp;     * Get number of deliveries &lt;br&gt;
+<i>116</i>&nbsp;     * Calculated by the number of distinct categories in the cart.
+<i>117</i>&nbsp;     *
+<i>118</i>&nbsp;     * @return int - number of deliveries
+<i>119</i>&nbsp;     */
+<i>120</i>&nbsp;    private int getNumberOfDeliveries() {
+<b class="fc"><i>121</i>&nbsp;        return getDistinctCategories().size();</b>
+<i>122</i>&nbsp;    }
+<i>123</i>&nbsp;
+<i>124</i>&nbsp;    /**
+<i>125</i>&nbsp;     * Get number of different products in the cart.
+<i>126</i>&nbsp;     *
+<i>127</i>&nbsp;     * @return Return size of shopping items as a list of distinct products
+<i>128</i>&nbsp;     */
+<i>129</i>&nbsp;    private int getNumberOfProducts() {
+<b class="fc"><i>130</i>&nbsp;        return shoppingItems.size();</b>
+<i>131</i>&nbsp;    }
+<i>132</i>&nbsp;
+<i>133</i>&nbsp;    /**
+<i>134</i>&nbsp;     * Calculates delivery cost&lt;br&gt;
+<i>135</i>&nbsp;     * It applies dynamic cargo pricing rules based on given the number of deliveries and number of products.
+<i>136</i>&nbsp;     *
+<i>137</i>&nbsp;     * @return double - Return Delivery Cost
+<i>138</i>&nbsp;     **/
+<i>139</i>&nbsp;    public double getDeliveryCost() {
+<b class="fc"><i>140</i>&nbsp;        return deliveryCostCalculator.calculateFor(getNumberOfDeliveries(), getNumberOfProducts());</b>
+<i>141</i>&nbsp;    }
+<i>142</i>&nbsp;
+<i>143</i>&nbsp;    public void print() {
+<b class="fc"><i>144</i>&nbsp;        System.out.println(&quot;========================= SHOPPING CART ==============================\n&quot;);</b>
+<i>145</i>&nbsp;
+<b class="fc"><i>146</i>&nbsp;        Collections.sort(shoppingItems);</b>
+<b class="fc"><i>147</i>&nbsp;        shoppingItems.forEach(shoppingItem -&gt; System.out.println(shoppingItem.toString()));</b>
+<i>148</i>&nbsp;
+<b class="fc"><i>149</i>&nbsp;        double totalDiscount = getCampaignDiscount() + getCouponDiscount();</b>
+<b class="fc"><i>150</i>&nbsp;        System.out.printf(&quot;Total Price of All Product: %s TL\n&quot;, getTotalPriceOfAllProducts());</b>
+<b class="fc"><i>151</i>&nbsp;        System.out.printf(String.format(&quot;Total Discount(Campaign and Coupon): %.2f TL (%.2f + %.2f)\n&quot;,</b>
+<b class="fc"><i>152</i>&nbsp;                totalDiscount, getCampaignDiscount(), getCouponDiscount()));</b>
+<i>153</i>&nbsp;
+<i>154</i>&nbsp;        //At the final line print total amount and the delivery cost.
+<b class="fc"><i>155</i>&nbsp;        System.out.printf(&quot;====================================================================\n\n&quot;);</b>
+<b class="fc"><i>156</i>&nbsp;        System.out.printf(String.format(&quot;Total Amount: %.2f TL\n&quot;, getTotalAmountAfterDiscounts()));</b>
+<b class="fc"><i>157</i>&nbsp;        System.out.printf(String.format(&quot;Delivery Cost: %.2f TL\n&quot;, getDeliveryCost()));</b>
+<b class="fc"><i>158</i>&nbsp;    }</b>
+<i>159</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-09-04 08:04</div>
+</div>
+</body>
+</html>

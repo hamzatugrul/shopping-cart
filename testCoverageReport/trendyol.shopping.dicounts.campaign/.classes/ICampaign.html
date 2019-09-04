@@ -1,0 +1,70 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ICampaign</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">trendyol.shopping.dicounts.campaign</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ICampaign (trendyol.shopping.dicounts.campaign)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">ICampaign</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package trendyol.shopping.dicounts.campaign;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import trendyol.shopping.Category;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;public interface ICampaign {
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;    /**
+<i>8</i>&nbsp;     * Check whether campaign could be applied for given number of products and given category of product
+<i>9</i>&nbsp;     *
+<i>10</i>&nbsp;     * @param productCategory Category Of given product
+<i>11</i>&nbsp;     * @param quantity        Quantity of products
+<i>12</i>&nbsp;     * @return Returns true if it is applicable otherwise returns false
+<i>13</i>&nbsp;     */
+<i>14</i>&nbsp;    boolean isApplicable(Category productCategory, int quantity);
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    /**
+<i>17</i>&nbsp;     * Get discount for given total price of products in cart
+<i>18</i>&nbsp;     *
+<i>19</i>&nbsp;     * @param totalPrice total price
+<i>20</i>&nbsp;     * @return Calculated discount
+<i>21</i>&nbsp;     */
+<i>22</i>&nbsp;    double getDiscount(double totalPrice);
+<i>23</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-09-04 08:04</div>
+</div>
+</body>
+</html>

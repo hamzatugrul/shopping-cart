@@ -1,0 +1,68 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ICoupon</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">trendyol.shopping.dicounts.coupon</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ICoupon (trendyol.shopping.dicounts.coupon)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">ICoupon</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package trendyol.shopping.dicounts.coupon;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;public interface ICoupon {
+<i>4</i>&nbsp;    /**
+<i>5</i>&nbsp;     * &lt;b&gt;Check whether coupon could be applied for given total amount of products in cart&lt;/b&gt;
+<i>6</i>&nbsp;     * &lt;br&gt;
+<i>7</i>&nbsp;     * Coupons have minimum amount. If the cart total is less than minimum amount, coupon is not applicable.
+<i>8</i>&nbsp;     *
+<i>9</i>&nbsp;     * @param totalAmount Total amount of products in cart
+<i>10</i>&nbsp;     * @return Returns true if it is applicable otherwise returns false
+<i>11</i>&nbsp;     */
+<i>12</i>&nbsp;    boolean isApplicable(double totalAmount);
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    /**
+<i>15</i>&nbsp;     * Get discount for given total amount of products in cart
+<i>16</i>&nbsp;     *
+<i>17</i>&nbsp;     * @param totalAmount Total amount of products in cart
+<i>18</i>&nbsp;     * @return Calculated discount for products in cart
+<i>19</i>&nbsp;     */
+<i>20</i>&nbsp;    double getDiscount(double totalAmount);
+<i>21</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-09-04 08:04</div>
+</div>
+</body>
+</html>
