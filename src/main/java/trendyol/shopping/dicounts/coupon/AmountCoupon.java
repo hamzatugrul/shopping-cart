@@ -1,6 +1,7 @@
 package trendyol.shopping.dicounts.coupon;
 
 public class AmountCoupon implements ICoupon {
+
     private double amount;
     private double minAmountConstraintForApply;
 

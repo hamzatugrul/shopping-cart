@@ -14,7 +14,7 @@ public abstract class BaseCampaign implements ICampaign {
 
     public boolean isApplicable(Category productCategory, int quantity) {
         return (quantity > this.minQuantityForApply)
-                && productCategory.isInSameCategoryLine(this.campaignCategory);
+                && productCategory.isUpperOfCurrentCategory(this.campaignCategory);
     }
 
     public abstract double getDiscount(double totalPrice);

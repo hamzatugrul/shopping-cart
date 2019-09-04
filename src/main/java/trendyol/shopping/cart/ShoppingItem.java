@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class ShoppingItem implements Comparable<ShoppingItem> {
+
     private Product product;
     private int quantity;
     private List<ICampaign> applicableCampaigns;

@@ -2,6 +2,8 @@ package trendyol.shopping;
 
 public class Category implements Comparable<Category> {
 
+    protected final static String SUBCATEGORY_ARROW = ">>";
+
     private String title;
     private Category parentCategory;
 
@@ -19,20 +21,16 @@ public class Category implements Comparable<Category> {
         return title;
     }
 
-    public Category getParentCategory() {
-        return parentCategory;
-    }
-
-    public boolean isInSameCategoryLine(Category category) {
+    public boolean isUpperOfCurrentCategory(Category category) {
         return category == this ||
-                (parentCategory != null && parentCategory.isInSameCategoryLine(category));
+                (this.parentCategory != null && this.parentCategory.isUpperOfCurrentCategory(category));
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         if (this.parentCategory != null) {
-            sb.append(this.parentCategory.toString()).append(" >> ");
+            sb.append(this.parentCategory.toString()).append(SUBCATEGORY_ARROW);
         }
         return sb.append(this.title).toString();
     }
